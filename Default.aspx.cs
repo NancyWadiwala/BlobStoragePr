@@ -11,7 +11,7 @@ namespace BlobStoragePr
         private string connectionString;
         private string containerName = "documents";
 
-        protected void Page_Load(object sender, EventArgs e)
+        public void Page_Load(object sender, EventArgs e)
         {
             connectionString = ConfigurationManager.ConnectionStrings["BlobConnection"].ConnectionString;
             if (!IsPostBack)
@@ -20,7 +20,7 @@ namespace BlobStoragePr
             }
         }
 
-        protected void btnUpload_Click(object sender, EventArgs e)
+        public void btnUpload_Click(object sender, EventArgs e)
         {
             try
             {
@@ -45,7 +45,7 @@ namespace BlobStoragePr
             }
         }
 
-        private void LoadFiles()
+        public void LoadFiles()
         {
             BlobContainerClient container = GetContainer();
             List<FileItem> files = new List<FileItem>();
@@ -60,7 +60,7 @@ namespace BlobStoragePr
             gvFiles.DataBind();
         }
 
-        protected void gvFiles_RowCommand(object sender, System.Web.UI.WebControls.GridViewCommandEventArgs e)
+        public void gvFiles_RowCommand(object sender, System.Web.UI.WebControls.GridViewCommandEventArgs e)
         {
             if (e.CommandName == "Download")
             {
@@ -70,7 +70,7 @@ namespace BlobStoragePr
             }
         }
 
-        private void DownloadFile(string fileName)
+        public void DownloadFile(string fileName)
         {
             BlobContainerClient container = GetContainer();
             BlobClient blob = container.GetBlobClient(fileName);
@@ -84,7 +84,7 @@ namespace BlobStoragePr
             Response.End();
         }
 
-        private BlobContainerClient GetContainer()
+        public BlobContainerClient GetContainer()
         {
             BlobServiceClient service = new BlobServiceClient(connectionString);
             BlobContainerClient container = service.GetBlobContainerClient(containerName);
